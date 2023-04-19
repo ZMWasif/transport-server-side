@@ -40,6 +40,22 @@ async function run() {
       res.send(service);
     });
 
+    /* POST */
+
+    app.post("/services", async (req, res) => {
+      const newService = req.body;
+      const result = await serviceCollection.insertOne(newService);
+      res.send(result);
+    });
+
+    /* Delete */
+    app.delete("/services/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await serviceCollection.deleteOne(query);
+      res.send(result);
+    });
+
     // Send a ping to confirm a successful connection
 
     console.log(
